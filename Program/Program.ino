@@ -19,8 +19,11 @@ DNSServer dnsServer;
 // Start web server
 AsyncWebServer server(80);
 
+// Gets called on DNS redirect
+char* indexHTML = "<!DOCTYPE html><html><head> <title>ESP32 Web Server</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head><body> <h1>ESP32 Web Server</h1> <img src=\"rick.gif\"></body></html>";
 void onRequest(AsyncWebServerRequest *request){
-  request->send(200, "text/html", "<!DOCTYPE html><html><head><title>ESP32</title></head><body><h1>Big</h1><img src=\"rick.gif\"><video controls src=\"astley.mp4\" /></body></html>");
+  // Respond with 200 OK and HTML page
+  request->send(200, "text/html", indexHTML);
 }
 
 void setup() {
@@ -40,15 +43,22 @@ void setup() {
 
   // Redirected DNS queries will get sent here
   server.onNotFound(onRequest);
-  
-  // Route to load G O D M O D E
+  // Redirected DNS queries may also be sent here
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/html", indexHTML);
+  });
+
+  // Routes to load media content
+  server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/style.css");
+  });
   server.on("/rick.gif", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/rick.gif");
   });
   server.on("/astley.mp4", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/astley.mp4");
   });
-  
+
   server.begin();
 }
 
