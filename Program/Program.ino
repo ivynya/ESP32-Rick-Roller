@@ -20,7 +20,7 @@ DNSServer dnsServer;
 AsyncWebServer server(80);
 
 void onRequest(AsyncWebServerRequest *request){
-    request->send(200);
+  request->send(200, "text/html", "<!DOCTYPE html><html><head><title>ESP32</title></head><body><h1>Big</h1></body></html>");
 }
 
 void setup() {
