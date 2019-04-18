@@ -13,7 +13,7 @@ const char* password = "password";
 
 // DNS Settings
 const byte DNS_PORT = 53;
-IPAddress apIP(192, 168, 1, 1);
+IPAddress apIP(69, 69, 69, 69);
 DNSServer dnsServer;
 
 // Start web server
@@ -29,7 +29,7 @@ void onRequest(AsyncWebServerRequest *request){
 void setup() {
   // Start AP with localIP, dnsIP, and gatewayIP
   WiFi.mode(WIFI_AP);
-  WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
+  WiFi.softAPConfig(apIP, apIP, IPAddress(255,255,255,0));
   WiFi.softAP(ssid);
 
   // Initialize SPIFFS
