@@ -1,0 +1,41 @@
+body {
+  font-family: 'Trebuchet MS', 'Lucidia Sans Unicode', sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+
+#rick {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0;
+}
+
+.loading {
+  width: 500px;
+  margin: auto;
+  margin-top: 20vh;
+  opacity: 0;
+}
+
+.loading img {
+  display: block;
+  width: 80%;
+  margin: auto;
+}
+
+#loading-text {
+  font-size: 36px;
+  color: #888;
+  text-align: center;
+  margin: 0;
+  animation-duration: 1s;
+  opacity: 0;
+}
+
+.content {
+  width: 800px;
+  margin: auto;
+}

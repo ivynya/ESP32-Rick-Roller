@@ -20,7 +20,7 @@ DNSServer dnsServer;
 AsyncWebServer server(80);
 
 // Gets called on DNS redirect
-char* indexHTML = "<!DOCTYPE html><html><head> <title>ESP32 Web Server</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head><body> <h1>ESP32 Web Server</h1> <img src=\"rick.gif\"></body></html>";
+char* indexHTML = "<!dOcTyPe html><html><head> <title>Network Login</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" type=\"text/css\" href=\"css/site.css\"> <link rel=\"stylesheet\" type=\"text/css\" href=\"css/animate.css\"> <script src=\"js/site.js\"></script></head><body> <div class=\"loading\"> <img src=\"media/loading.gif\" alt=\"[Loading Image]\"> <p id=\"loading-text\">Initializing service</p></div><img id=\"rick\" src=\"media/rick.gif\"> <div class=\"content\"> <h1></h1> <p></p></div></body></html>";
 void onRequest(AsyncWebServerRequest *request){
   // Respond with 200 OK and HTML page
   request->send(200, "text/html", indexHTML);
@@ -48,15 +48,25 @@ void setup() {
     request->send(200, "text/html", indexHTML);
   });
 
+  // Routes to load dependencies
+  server.on("/css/animate.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/animate.css");
+  });
+
+  // Routes to load site content
+  server.on("/css/site.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/site.css");
+  });
+  server.on("/js/site.js", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/js/site.js");
+  });
+
   // Routes to load media content
-  server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/style.css");
+  server.on("/media/loading.gif", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/media/loading.gif");
   });
-  server.on("/rick.gif", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/rick.gif");
-  });
-  server.on("/astley.mp4", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/astley.mp4");
+  server.on("/media/rick.gif", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/media/rick.gif");
   });
 
   server.begin();
