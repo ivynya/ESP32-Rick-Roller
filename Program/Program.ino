@@ -9,7 +9,6 @@
 
 // AP Settings
 const char* ssid = "Free Trustworthy Wifi!!!!";
-const char* password = "password";
 
 // DNS Settings
 const byte DNS_PORT = 53;
@@ -20,7 +19,7 @@ DNSServer dnsServer;
 AsyncWebServer server(80);
 
 // Gets called on DNS redirect
-char* indexHTML = "<!dOcTyPe html><html><head> <title>Network Login</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" type=\"text/css\" href=\"css/site.css\"> <link rel=\"stylesheet\" type=\"text/css\" href=\"css/animate.css\"> <script src=\"js/site.js\"></script></head><body> <div class=\"loading\"> <img src=\"media/loading.gif\" alt=\"[Loading Image]\"> <p id=\"loading-text\">Initializing service</p></div><img id=\"rick\" src=\"media/rick.gif\"> <div class=\"content\"> <h1></h1> <p></p></div></body></html>";
+char* indexHTML = "<!dOcTyPe html><html><head><title>Network Login</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" type=\"text/css\" href=\"css/site.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"css/animate.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"css/loading.css\"><script src=\"js/site.js\"></script><script src=\"js/loading.min.js\"></script></head><body><div class=\"loading\"><div class=\"ldBar\"data-type=\"fill\"data-img=\"media/loading.svg\"></div><p id=\"loading-text\">Initializing service</p></div><img id=\"rick\" src=\"media/rick.gif\"><div class=\"content\"><h1></h1><p></p></div></body></html>";
 void onRequest(AsyncWebServerRequest *request){
   // Respond with 200 OK and HTML page
   request->send(200, "text/html", indexHTML);
@@ -50,20 +49,26 @@ void setup() {
 
   // Routes to load dependencies
   server.on("/css/animate.css", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/css/animate.css");
+    request->send(SPIFFS, "/css/animate.css", "text/css");
+  });
+  server.on("/css/loading.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/css/loading.css", "text/css");
+  });
+  server.on("/js/loading.min.js", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/js/loading.min.js", "text/js");
   });
 
   // Routes to load site content
   server.on("/css/site.css", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/css/site.css");
+    request->send(SPIFFS, "/css/site.css", "text/css");
   });
   server.on("/js/site.js", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/js/site.js");
+    request->send(SPIFFS, "/js/site.js", "text/js");
   });
 
   // Routes to load media content
-  server.on("/media/loading.gif", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/media/loading.gif");
+  server.on("/media/loading.svg", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/media/loading.svg");
   });
   server.on("/media/rick.gif", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/media/rick.gif");

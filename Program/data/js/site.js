@@ -16,15 +16,17 @@ function animateCSS(element, animationName, isPermanent, callback) {
 
 var flavorTexts = ["Registering your device",
                    "Activating your connection",
-                   "Anonymizing your information"];
+                   "Contacting welcoming party"];
 
 function cycleFlavorText(element, interval, repeats, callback) {
   const node = document.querySelector(element);
+  const progBar = document.querySelector(".ldBar").ldBar;
   var cycle = 0;
   var timer = setInterval(function() {
     animateCSS(element, "fadeOutDown", false, function() {
       node.innerHTML = flavorTexts[cycle-1];
       animateCSS(element, "fadeInDown", true, "");
+      progBar.set((cycle / repeats) * 100);
     });
     cycle += 1;
   }, interval + 1000);
@@ -36,16 +38,15 @@ function cycleFlavorText(element, interval, repeats, callback) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
+  var cycleInterval = 2000;
+  var cycles = 3;
+
   animateCSS(".loading", "fadeIn", true,
     setTimeout(function() {
       animateCSS("#loading-text", "fadeIn", true, function() {
-        cycleFlavorText("#loading-text", 2000, 3, function() {
+        cycleFlavorText("#loading-text", cycleInterval, cycles, function() {
           animateCSS(".loading", "fadeOut", true, function() {
-            animateCSS("#rick", "fadeIn", true, "");
-          });
-        });
-      });
-    }, 500)
-  );
+            animateCSS("#rick", "fadeIn", true, null)
+  })})})}, 1000));
   // show content (not implemented)
 });

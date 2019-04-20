@@ -15,15 +15,23 @@ body {
 
 .loading {
   width: 500px;
+  height: 270px;
   margin: auto;
-  margin-top: 20vh;
+  margin-top: 25%;
+  transform: translateY(-50%);
   opacity: 0;
 }
 
-.loading img {
+.loading .ldBar {
   display: block;
-  width: 80%;
+  width: 80% !important;
+  height: 100% !important;
   margin: auto;
+  margin-bottom: 20px;
+}
+
+.loading .ldBar-label {
+  display: none;
 }
 
 #loading-text {

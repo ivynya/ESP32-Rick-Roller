@@ -24,7 +24,13 @@ AsyncTCP.h & SPIFFS.h
 animate.css
 - A fantastic lightweight library to replace most of what I used to use jQuery for
 - The included file is modified to strip out the bulk I don't need
+- Under MIT License
 - https://github.com/daneden/animate.css
+
+loading-bar
+- A css/js library for creating loading bars with SVGs and other methods
+- Under MIT License
+- https://github.com/loadingio/loading-bar
 
 Rick Astley
 - Absolutely essential to this project. If your universe does not use the Rick Astley dependency, this will not run on your device.
