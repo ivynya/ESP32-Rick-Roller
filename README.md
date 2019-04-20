@@ -1,7 +1,15 @@
 # ESP32-Rick-Roller
 The one-stop shop solution for an ESP32-based Rick Rolling solution.
 
-This README will be updated fully later. Until then, here are the dependencies used in this project.
+This README will be updated fully later. Until then, here are the dependencies used in this project and a few notes.
+
+# Notes
+
+I don't understand why or how, but the captive portal system works approximately 50% of the time or less on Windows. iOS (and by extension macOS) as well as Android (unsure about ChromeOS) seem to perform fine. If someone can find a fix or the reason why, that would be appreciated.
+
+Boards tested:
+- Heltec WiFi Kit 32
+- Lolin D32 Pro - will be moving forward with this board as it has more memory/support for SD card directly
 
 # Dependencies - C++
 
@@ -13,7 +21,7 @@ DNSServer.h
 - https://github.com/espressif/arduino-esp32
 
 ESPAsyncWebServer.h
-- Project looks not to be maintained, but it works fine.
+- Project looks not to be maintained, but it works fine, mostly
 - https://github.com/me-no-dev/ESPAsyncWebServer
 
 AsyncTCP.h & SPIFFS.h
@@ -38,3 +46,6 @@ Rick Astley
   - https://www.youtube.com/watch?v=CotXWxTBIZE
 - The GIF included is from Rick Astley's Never Gonna Give You Up
   - https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+MinifyHTML
+- Copied from SDMiniTools for use in moving the index.html to the Program.ino
