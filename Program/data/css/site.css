@@ -83,6 +83,7 @@ body {
 }
 
 .contentBlock {
+  display: none;
   background-color: #eee;
   position: absolute;
   top: 100%;
@@ -93,7 +94,47 @@ body {
 }
 
 .content {
-  width: 1000px;
+  width: 1200px;
   margin: auto;
   margin-top: 5vh;
+}
+
+.content h1 {
+  text-align: center;
+  color: #555;
+}
+
+.content p {
+  text-align: justify;
+  line-height: 36px;
+  color: #777;
+}
+
+.half {
+  display: block;
+  width: 50%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.feature {
+  text-align: center;
+  margin: 60px;
+}
+
+.feature h1 {
+  font-size: 72px;
+  margin: 10px;
+}
+
+.feature h2 {
+  font-size: 24px;
+  color: #777;
+  margin: 0;
 }

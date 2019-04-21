@@ -1,17 +1,17 @@
 // Function modified from https://github.com/daneden/animate.css
 function animateCSS(element, animationName, isPermanent, callback) {
-  const node = document.querySelector(element)
-  node.classList.add("animated", animationName)
+  const node = document.querySelector(element);
+  node.classList.add("animated", animationName);
 
   function handleAnimationEnd() {
     if (!isPermanent)
-      node.classList.remove("animated", animationName)
-    node.removeEventListener("animationend", handleAnimationEnd)
+      node.classList.remove("animated", animationName);
+    node.removeEventListener("animationend", handleAnimationEnd);
 
-    if (typeof callback === "function") callback()
+    if (typeof callback === "function") callback();
   }
 
-  node.addEventListener("animationend", handleAnimationEnd)
+  node.addEventListener("animationend", handleAnimationEnd);
 }
 
 var flavorTexts = ["Registering your device",
@@ -34,11 +34,11 @@ function cycleFlavorText(element, interval, repeats, callback) {
   setTimeout(function() {
     clearInterval(timer);
     if (typeof callback === "function") callback()
-  }, (repeats + 3) * interval);
+  }, (repeats + 1) * (interval + 1000));
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  var cycleInterval = 2000;
+  var cycleInterval = 1500;
   var cycles = 3;
 
   animateCSS(".loading", "fadeIn", true,
@@ -50,9 +50,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var rick = document.querySelector("#rick");
             rick.play();
             setTimeout(function() {
-              animateCSS("#message", "fadeIn", true, null)
-              animateCSS("#notification", "fadeInUp", true, null)
-              animateCSS(".contentBlock", "fadeIn", true, null)
+              animateCSS("#message", "fadeIn", true, null);
+              animateCSS("#notification", "fadeInUp", true, null);
+              var content = document.querySelector(".contentBlock");
+              content.style.display = "block";
+              animateCSS(".contentBlock", "fadeIn", true, null);
             }, 1000);
   })})})}, 1000));
   // show content (not implemented)

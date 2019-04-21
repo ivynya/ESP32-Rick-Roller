@@ -10,8 +10,8 @@
 // AP Settings
 const char* apssid = "Free Trustworthy Wifi!!!!";
 // WiFi Settings
-const char* ssid = "";
-const char* pswd = "";
+const char* ssid = "My WiFi Network";
+const char* pswd = "qwertyui";
 
 // DNS Settings
 const byte DNS_PORT = 53;
@@ -32,7 +32,7 @@ void setup() {
   // Start AP with localIP, dnsIP, and gatewayIP
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, IPAddress(255,255,255,0));
-  WiFi.softAP(ssid);
+  WiFi.softAP(apssid);
 
   // Initialize SPIFFS
   if(!SPIFFS.begin(true)){
