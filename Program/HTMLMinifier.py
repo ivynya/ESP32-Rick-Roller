@@ -21,5 +21,6 @@ class MinifyHTML(object):
         return html
 
 while(True):
-    MinifyHTML(input("Filename > "), bool(input("Escape Characters? [True/False] > ")))
+    MinifyHTML("data/index.html", True)
     print("")
+    input("Press enter to refresh.")

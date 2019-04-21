@@ -46,7 +46,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       animateCSS("#loading-text", "fadeIn", true, function() {
         cycleFlavorText("#loading-text", cycleInterval, cycles, function() {
           animateCSS(".loading", "fadeOut", true, function() {
-            animateCSS("#rick", "fadeIn", true, null)
+            animateCSS("#rick", "fadeIn", true, null);
+            var rick = document.querySelector("#rick");
+            rick.play();
+            setTimeout(function() {
+              animateCSS("#message", "fadeIn", true, null)
+              animateCSS("#notification", "fadeInUp", true, null)
+              animateCSS(".contentBlock", "fadeIn", true, null)
+            }, 1000);
   })})})}, 1000));
   // show content (not implemented)
 });

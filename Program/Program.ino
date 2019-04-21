@@ -8,7 +8,10 @@
 #include <SPIFFS.h>
 
 // AP Settings
-const char* ssid = "Free Trustworthy Wifi!!!!";
+const char* apssid = "Free Trustworthy Wifi!!!!";
+// WiFi Settings
+const char* ssid = "";
+const char* pswd = "";
 
 // DNS Settings
 const byte DNS_PORT = 53;
@@ -38,7 +41,10 @@ void setup() {
   }
 
   // Start DNS server with * (will redirect all)
-  dnsServer.start(DNS_PORT, "*", apIP);
+  if(!dnsServer.start(DNS_PORT, "*", apIP)) {
+    Serial.println("An error has occurred while starting DNS");
+    return;
+  }
 
   // Redirected DNS queries will get sent here
   server.onNotFound(onRequest);
@@ -70,8 +76,8 @@ void setup() {
   server.on("/media/loading.svg", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/media/loading.svg");
   });
-  server.on("/media/rick.gif", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/media/rick.gif");
+  server.on("/media/astley.mp4", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/media/astley.mp4");
   });
 
   server.begin();

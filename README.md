@@ -11,6 +11,8 @@ Boards tested:
 - Heltec WiFi Kit 32
 - Lolin D32 Pro - will be moving forward with this board as it has more memory/support for SD card directly
 
+If your board doesn't have at least 8MB of flash allocable to SPIFFS, replace instances of rick.mp4 with rick.gif in Program.ino and the index/js files.
+
 # Dependencies - C++
 
 WiFi.h
@@ -42,9 +44,7 @@ loading-bar
 
 Rick Astley
 - Absolutely essential to this project. If your universe does not use the Rick Astley dependency, this will not run on your device.
-- The video included is from A.S.T.L.E.Y. found here
-  - https://www.youtube.com/watch?v=CotXWxTBIZE
-- The GIF included is from Rick Astley's Never Gonna Give You Up
+- The GIF and video included is from Astley's Never Gonna Give You Up
   - https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 MinifyHTML

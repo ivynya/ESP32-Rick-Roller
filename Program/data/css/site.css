@@ -6,10 +6,49 @@ body {
 
 #rick {
   position: fixed;
-  right: 0;
-  bottom: 0;
   min-width: 100%;
   min-height: 100%;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#message {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  color: #ddd;
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  font-size: 64px;
+  padding: 20px;
+  margin-top: 25%;
+  transform: translateY(-50%);
+  opacity: 0;
+}
+
+#notification {
+  background-color: #ddd;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: #555;
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   opacity: 0;
 }
 
@@ -43,7 +82,18 @@ body {
   opacity: 0;
 }
 
+.contentBlock {
+  background-color: #eee;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  min-height: 100%;
+}
+
 .content {
-  width: 800px;
+  width: 1000px;
   margin: auto;
+  margin-top: 5vh;
 }
