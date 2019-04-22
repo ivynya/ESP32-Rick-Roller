@@ -33,7 +33,7 @@ function cycleFlavorText(element, interval, repeats, callback) {
 
   setTimeout(function() {
     clearInterval(timer);
-    if (typeof callback === "function") callback()
+    if (typeof callback === "function") callback();
   }, (repeats + 1) * (interval + 1000));
 }
 
@@ -47,8 +47,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         cycleFlavorText("#loading-text", cycleInterval, cycles, function() {
           animateCSS(".loading", "fadeOut", true, function() {
             animateCSS("#rick", "fadeIn", true, null);
-            var rick = document.querySelector("#rick");
-            rick.play();
             setTimeout(function() {
               animateCSS("#message", "fadeIn", true, null);
               animateCSS("#notification", "fadeInUp", true, null);
@@ -57,5 +55,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
               animateCSS(".contentBlock", "fadeIn", true, null);
             }, 1000);
   })})})}, 1000));
-  // show content (not implemented)
 });

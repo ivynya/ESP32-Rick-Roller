@@ -106,7 +106,7 @@ body {
 
 .content p {
   text-align: justify;
-  line-height: 36px;
+  line-height: 40px;
   color: #777;
 }
 
@@ -123,6 +123,10 @@ body {
   float: right;
 }
 
+br {
+  clear: both;
+}
+
 .feature {
   text-align: center;
   margin: 60px;
@@ -137,4 +141,47 @@ body {
   font-size: 24px;
   color: #777;
   margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  body {
+    font-size: 18px;
+  }
+  .content {
+    width: 800px;
+  }
+  #message {
+    width: 300px;
+    font-size: 48px;
+  }
+  #notification {
+    width: 300px;
+    font-size: 20px;
+  }
+  .loading {
+    width: 300px;
+    height: 160px;
+  }
+  #loading-text {
+    font-size: 24px;
+  }
+  .feature {
+    margin: 50px;
+    margin-top: 70px;
+  }
+  .feature h1 {
+    font-size: 64px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    width: 300px;
+  }
+  .left .feature {
+    display: none;
+  }
+  .right {
+    width: 100%;
+  }
 }
