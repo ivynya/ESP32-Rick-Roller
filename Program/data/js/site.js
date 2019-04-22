@@ -38,7 +38,7 @@ function cycleFlavorText(element, interval, repeats, callback) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  var cycleInterval = 1500;
+  var cycleInterval = 2500;
   var cycles = 3;
 
   animateCSS(".loading", "fadeIn", true,
