@@ -8,7 +8,7 @@
 #include <SPIFFS.h>
 
 // AP Settings
-const char* apssid = "Free Trustworthy Wifi!!!!";
+const char* ssid = "Free Trustworthy Wifi!!!!";
 
 // DNS Settings
 const byte DNS_PORT = 53;
