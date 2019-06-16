@@ -37,10 +37,7 @@ body {
 
 #notification {
   background-color: #ddd;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
   color: #555;
-  width: 500px;
   margin: auto;
   text-align: center;
   font-size: 24px;
@@ -153,10 +150,6 @@ br {
   #message {
     width: 300px;
     font-size: 48px;
-  }
-  #notification {
-    width: 300px;
-    font-size: 20px;
   }
   .loading {
     width: 300px;

@@ -14,8 +14,7 @@ function animateCSS(element, animationName, isPermanent, callback) {
   node.addEventListener("animationend", handleAnimationEnd);
 }
 
-var flavorTexts = ["Registering your device",
-                   "Activating your connection",
+var flavorTexts = ["Activating your connection",
                    "Contacting welcoming party"];
 
 function cycleFlavorText(element, interval, repeats, callback) {
@@ -39,7 +38,7 @@ function cycleFlavorText(element, interval, repeats, callback) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   var cycleInterval = 1500;
-  var cycles = 3;
+  var cycles = 2;
 
   animateCSS(".loading", "fadeIn", true,
     setTimeout(function() {
