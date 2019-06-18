@@ -58,16 +58,12 @@ body {
   opacity: 0;
 }
 
-.loading .ldBar {
+.loading img {
   display: block;
   width: 80% !important;
   height: 100% !important;
   margin: auto;
   margin-bottom: 20px;
-}
-
-.loading .ldBar-label {
-  display: none;
 }
 
 #loading-text {

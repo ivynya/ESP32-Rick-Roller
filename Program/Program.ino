@@ -13,7 +13,7 @@ const char* ssid = "Free Public WiFi";
 
 // DNS Settings
 const byte DNS_PORT = 53;
-IPAddress apIP(69, 69, 69, 69);
+IPAddress apIP(192, 168, 4, 1);
 DNSServer dnsServer;
 
 // Start web server
@@ -85,6 +85,7 @@ void setup() {
   while (file.available()) {
     json += char(file.read());
   }
+  // Log the data loaded
   Serial.println(json);
 
   // Parse saved persistent data
@@ -101,12 +102,6 @@ void setup() {
   timesInfoViewed = doc["i"];
   file.close();
 
-  // Log the data loaded
-  Serial.println(visitors);
-  Serial.println(avgSeconds);
-  Serial.println(totalSeconds);
-  Serial.println(timesInfoViewed);
-
   // Redirected DNS queries will get sent here
   server.onNotFound(onRequest);
   // Redirected DNS queries may also be sent here
@@ -117,12 +112,6 @@ void setup() {
   // Routes to load dependencies
   server.on("/css/animate.css", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/css/animate.css", "text/css");
-  });
-  server.on("/css/loading.css", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/css/loading.css", "text/css");
-  });
-  server.on("/js/loading.min.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/js/loading.min.js", "text/js");
   });
 
   // Routes to load site content

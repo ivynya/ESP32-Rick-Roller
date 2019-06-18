@@ -19,13 +19,11 @@ var flavorTexts = ["Activating your connection",
 
 function cycleFlavorText(element, interval, repeats, callback) {
   const node = document.querySelector(element);
-  const progBar = document.querySelector(".ldBar").ldBar;
   var cycle = 0;
   var timer = setInterval(function() {
     animateCSS(element, "fadeOutDown", false, function() {
       node.innerHTML = flavorTexts[cycle-1];
       animateCSS(element, "fadeInDown", true, "");
-      progBar.set((cycle / repeats) * 100);
     });
     cycle += 1;
   }, interval + 1000);
@@ -54,4 +52,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
               animateCSS(".contentBlock", "fadeIn", true, null);
             }, 1000);
   })})})}, 1000));
+
+  loadStatistics();
 });
+
+function loadStatistics() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var responseJSON = JSON.parse(this.responseText);
+      document.getElementById("visitors").innerHTML = responseJSON.v;
+      document.getElementById("avgtime").innerHTML = responseJSON.s + " seconds";
+      document.getElementById("viewed").innerHTML = responseJSON.i;
+    }
+  };
+  xhttp.open("GET", "persistent.txt", true);
+  xhttp.send();
+}
