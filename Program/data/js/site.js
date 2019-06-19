@@ -1,3 +1,5 @@
+var startTime, scrolledDown = 0;
+
 // Function modified from https://github.com/daneden/animate.css
 function animateCSS(element, animationName, isPermanent, callback) {
   const node = document.querySelector(element);
@@ -36,26 +38,28 @@ function cycleFlavorText(element, interval, repeats, callback) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   var cycleInterval = 1500;
-  var cycles = 2;
 
   animateCSS(".loading", "fadeIn", true,
     setTimeout(function() {
       animateCSS("#loading-text", "fadeIn", true, function() {
-        cycleFlavorText("#loading-text", cycleInterval, cycles, function() {
+        cycleFlavorText("#loading-text", cycleInterval, flavorTexts.length, function() {
           animateCSS(".loading", "fadeOut", true, function() {
             animateCSS("#rick", "fadeIn", true, null);
             setTimeout(function() {
               animateCSS("#message", "fadeIn", true, null);
               animateCSS("#notification", "fadeInUp", true, null);
-              var content = document.querySelector(".contentBlock");
+              var content = document.getElementById("contentBlock");
               content.style.display = "block";
-              animateCSS(".contentBlock", "fadeIn", true, null);
+              animateCSS("#contentBlock", "fadeIn", true, null);
             }, 1000);
   })})})}, 1000));
 
   loadStatistics();
+
+  startTime = new Date();
 });
 
+// Get stats from server
 function loadStatistics() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -70,11 +74,21 @@ function loadStatistics() {
   xhttp.send();
 }
 
-window.addEventListener("unload", logData, false);
+window.addEventListener("scroll", function() {
+  var contentBlock = document.getElementById("contentBlock");
+  if (document.body.scrollTop > contentBlock.getBoundingClientRect().top) {
+    scrolledDown = 1;
+  }
+});
 
+// On browser close, send stats data
+window.addEventListener("unload", logData, false);
 function logData() {
   var data = new FormData();
-  data.set("s", 60);
-  data.set("v", 0);
+  // Seconds spent on site
+  var endTime = new Date();
+  data.set("s", Math.round((endTime - startTime) / 1000));
+  // If user scrolled to see info (0 = false, 1 = true)
+  data.set("v", scrolledDown);
   navigator.sendBeacon("/addvisit", data);
 }

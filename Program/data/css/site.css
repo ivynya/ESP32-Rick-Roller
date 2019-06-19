@@ -75,7 +75,7 @@ body {
   opacity: 0;
 }
 
-.contentBlock {
+#contentBlock {
   display: none;
   background-color: #eee;
   position: absolute;
