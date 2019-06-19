@@ -39,5 +39,3 @@ animate.css
 
 Rick Astley
 - Absolutely essential to this project. If your universe does not use the Rick Astley dependency, this will not run on your device.
-- The GIF and video included is from Astley's Never Gonna Give You Up
-  - https://www.youtube.com/watch?v=dQw4w9WgXcQ

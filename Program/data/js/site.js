@@ -69,3 +69,12 @@ function loadStatistics() {
   xhttp.open("GET", "persistent.txt", true);
   xhttp.send();
 }
+
+window.addEventListener("unload", logData, false);
+
+function logData() {
+  var data = new FormData();
+  data.set("s", 60);
+  data.set("v", 0);
+  navigator.sendBeacon("/addvisit", data);
+}

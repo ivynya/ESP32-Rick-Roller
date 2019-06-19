@@ -38,6 +38,8 @@ void incrementVisitorCount(int secondsSpent, bool scrolledDown) {
   if (scrolledDown) {
     timesInfoViewed += 1;
   }
+
+  savePersistentData();
 }
 
 void savePersistentData() {
@@ -130,9 +132,15 @@ void setup() {
     request->send(SPIFFS, "/media/rick.gif", "image/gif");
   });
 
-  // Routes to get data
+  // Routes to get/process data
   server.on("/persistent.txt", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/persistent.txt", "text/plain");
+  });
+  server.on("/addvisit", HTTP_ANY, [](AsyncWebServerRequest *request) {
+    int s = atoi(request->getParam(0)->value().c_str());
+    bool v = (atoi(request->getParam(1)->value().c_str()) == 1) ? true : false;
+    incrementVisitorCount(s, v);
+    request->send(200);
   });
 
   server.begin();
