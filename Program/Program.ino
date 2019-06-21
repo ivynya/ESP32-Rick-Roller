@@ -31,6 +31,7 @@ void onRequest(AsyncWebServerRequest *request) {
   request->send(SPIFFS, "/index.html", "text/html");
 }
 
+// Adds a visitor, recalculates average time spent
 void incrementVisitorCount(int secondsSpent, bool scrolledDown) {
   visitors += 1;
   totalSeconds += secondsSpent;
@@ -40,12 +41,13 @@ void incrementVisitorCount(int secondsSpent, bool scrolledDown) {
   }
 
   savePersistentData();
+  saveIndividualData(secondsSpent, scrolledDown);
 }
 
+// Save data from local variables to file (preserve upon reboot)
 void savePersistentData() {
   File file = SPIFFS.open("/persistent.txt", FILE_WRITE);
   if (!file) { return; }
-
   file.print("{\"v\":");
   file.print(visitors);
   file.print(",\"s\":");
@@ -53,7 +55,16 @@ void savePersistentData() {
   file.print(",\"i\":");
   file.print(timesInfoViewed);
   file.print("}");
+  file.close();
+}
 
+void saveIndividualData(int seconds, bool scrolledDown) {
+  File file = SPIFFS.open("/stats.txt", FILE_APPEND);
+  if (!file) { return; }
+  file.print("v: ");
+  file.print(seconds);
+  file.print(", ");
+  file.println(scrolledDown);
   file.close();
 }
 
@@ -135,6 +146,9 @@ void setup() {
   // Routes to get/process data
   server.on("/persistent.txt", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/persistent.txt", "text/plain");
+  });
+  server.on("/stats.txt", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(SPIFFS, "/stats.txt", "text/plain");
   });
   server.on("/addvisit", HTTP_ANY, [](AsyncWebServerRequest *request) {
     int s = atoi(request->getParam(0)->value().c_str());
