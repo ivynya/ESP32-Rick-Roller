@@ -122,11 +122,6 @@ void setup() {
     request->send(SPIFFS, "/index.html","text/html");
   });
 
-  // Routes to load dependencies
-  server.on("/css/animate.css", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/css/animate.css", "text/css");
-  });
-
   // Routes to load site content
   server.on("/css/site.css", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/css/site.css", "text/css");
