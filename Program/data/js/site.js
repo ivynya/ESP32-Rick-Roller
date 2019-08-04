@@ -1,1 +1,64 @@
-var startTime,scrolledDown=0;function animateCSS(t,e,n,a){const o=document.querySelector(t);o.classList.add("animated",e),o.addEventListener("animationend",function t(){n||o.classList.remove("animated",e),o.removeEventListener("animationend",t),"function"==typeof a&&a()})}var flavorTexts=["Activating your connection","Contacting welcoming party"];function cycleFlavorText(t,e,n,a){const o=document.querySelector(t);var i=0,c=setInterval(function(){animateCSS(t,"fadeOutDown",!1,function(){o.innerHTML=flavorTexts[i-1],animateCSS(t,"fadeInDown",!0,"")}),i+=1},e+1e3);setTimeout(function(){clearInterval(c),"function"==typeof a&&a()},(n+1)*(e+1e3))}function loadStatistics(){var t=new XMLHttpRequest;t.onreadystatechange=function(){if(4==this.readyState&&200==this.status){var t=JSON.parse(this.responseText);document.getElementById("visitors").innerHTML=t.v,document.getElementById("avgtime").innerHTML=t.s+" seconds",document.getElementById("viewed").innerHTML=t.i}},t.open("GET","persistent.txt",!0),t.send()}function logData(){var t=new FormData,e=new Date;t.set("s",Math.round((e-startTime)/1e3)),t.set("v",scrolledDown),navigator.sendBeacon("/addvisit",t)}document.addEventListener("DOMContentLoaded",function(t){animateCSS(".loading","fadeIn",!0,setTimeout(function(){animateCSS("#loading-text","fadeIn",!0,function(){cycleFlavorText("#loading-text",1500,flavorTexts.length,function(){animateCSS(".loading","fadeOut",!0,function(){animateCSS("#rick","fadeIn",!0,null),setTimeout(function(){animateCSS("#message","fadeIn",!0,null),animateCSS("#notification","fadeInUp",!0,null),document.getElementById("contentBlock").style.display="block",animateCSS("#contentBlock","fadeIn",!0,null)},1e3)})})})},1e3)),loadStatistics(),startTime=new Date}),window.addEventListener("scroll",function(){var t=document.getElementById("contentBlock");document.body.scrollTop>t.getBoundingClientRect().top&&(scrolledDown=1)}),window.addEventListener("unload",logData,!1);
+var startTime, scrolledDown = 0;
+
+// Function modified from https://github.com/daneden/animate.css
+function animateCSS(element, animationName, isPermanent, callback) {
+  const node = document.querySelector(element);
+  node.classList.add("animated", animationName);
+
+  function handleAnimationEnd() {
+    if (!isPermanent)
+      node.classList.remove("animated", animationName);
+    node.removeEventListener("animationend", handleAnimationEnd);
+
+    if (typeof callback === "function") callback();
+  }
+
+  node.addEventListener("animationend", handleAnimationEnd);
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  animateCSS("#rick", "fadeIn", true, null);
+  setTimeout(function() {
+    animateCSS("#message", "fadeIn", true, null);
+    animateCSS("#notification", "fadeInUp", true, null);
+    var content = document.getElementById("contentBlock");
+    content.style.display = "block";
+    animateCSS("#contentBlock", "fadeIn", true, null);
+  }, 1000);
+
+  startTime = new Date();
+});
+
+// Get stats from server
+function loadStatistics() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var responseJSON = JSON.parse(this.responseText);
+      document.getElementById("visitors").innerHTML = responseJSON.v;
+      document.getElementById("avgtime").innerHTML = responseJSON.s + " seconds";
+      document.getElementById("viewed").innerHTML = responseJSON.i;
+    }
+  };
+  xhttp.open("GET", "persistent.txt", true);
+  xhttp.send();
+}
+
+window.addEventListener("scroll", function() {
+  var contentBlock = document.getElementById("contentBlock");
+  if (document.body.scrollTop > contentBlock.getBoundingClientRect().top) {
+    scrolledDown = 1;
+  }
+});
+
+// On browser close, send stats data
+window.addEventListener("unload", logData, false);
+function logData() {
+  var data = new FormData();
+  // Seconds spent on site
+  var endTime = new Date();
+  data.set("s", Math.round((endTime - startTime) / 1000));
+  // If user scrolled to see info (0 = false, 1 = true)
+  data.set("v", scrolledDown);
+  navigator.sendBeacon("/addvisit", data);
+}
