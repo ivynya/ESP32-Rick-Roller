@@ -7,13 +7,13 @@
   <script src="js/site.js"></script>
 </head>
 <body>
-  <video id="rick" src="media/rick.mp4" autoplay></video>
+  <video id="rick" src="media/rick.mp4" autoplay muted></video>
   <div class="overlay">
     <p id="message">Gottem. <span id="notification">Scroll down for details.</span></p>
   </div>
   <div id="contentBlock">
     <div class="content">
-      <h1>"ARE YOU STEALING MY DATA?!"</h1>
+      <h1>It's Hacking Time.</h1>
       <hr>
       <div class="half right">
         <p>Rest assured, your personally identifiable data is not being stolen by us, and this site and WiFi network operate purely off of principles that you would find daily as you browse the web with no shady business like IP or location logging, and nothing to do with advertising on this site. If you are interested in how this site and WiFi network function, you are welcome to contact us with the information provided at the bottom of this page. In terms of data collected, we simply log your visit onto this page and how long you stay, for our wonderous statistics page you can find below! If you choose to leave a reaction below, that will also get saved, obviously. No other information (such as background network tasks, etc.) get taken. This site does not use cookies.</p>
@@ -34,6 +34,7 @@
       </div>
       <br>
       <h1>Statistics</h1>
+      <a name="refresh"></a>
       <hr>
       <div class="feature">
         <h1 id="visitors">N/A</h1>
@@ -47,6 +48,8 @@
         <h1 id="viewed">N/A</h1>
         <h2>Who Scrolled Down</h2>
       </div>
+      <p><a href="#refresh" onclick="loadStatistics()">Refresh</a> <a href="persistent.txt">Aggregated Stats</a> <a href="stats.txt">Visit Stats</a></p>
+      <br>
     </div>
   </div>
 </body>

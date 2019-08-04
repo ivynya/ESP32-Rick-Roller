@@ -1,4 +1,5 @@
 var startTime, scrolledDown = 0;
+var debounceStatisticsTime;
 
 // Function modified from https://github.com/daneden/animate.css
 function animateCSS(element, animationName, isPermanent, callback) {
@@ -17,7 +18,13 @@ function animateCSS(element, animationName, isPermanent, callback) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  animateCSS("#rick", "fadeIn", true, null);
+  var isMobile = window.matchMedia("only screen and (max-width: 1000px)").matches;
+
+  if (!isMobile) {
+    document.getElementById("rick").muted = false;
+  }
+  animateCSS("#rick", "fadeIn", false, null);
+  document.getElementById("rick").style.opacity = 1;
   setTimeout(function() {
     animateCSS("#message", "fadeIn", true, null);
     animateCSS("#notification", "fadeInUp", true, null);
@@ -27,10 +34,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }, 1000);
 
   startTime = new Date();
+
+  loadStatistics();
+
+  setTimeout(function() {
+    animateCSS("#rick", "fadeOut", true, null);
+  }, 77000);
 });
 
 // Get stats from server
 function loadStatistics() {
+  var now = new Date();
+  if ((debounceStatisticsTime - now) < 10000) return;
+  else debounceStatisticsTime = new Date();
+
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {

@@ -13,7 +13,7 @@ const char* ssid = "Free Public WiFi";
 
 // DNS Settings
 const byte DNS_PORT = 53;
-IPAddress apIP(192, 168, 4, 1);
+IPAddress apIP(192, 168, 0, 1);
 DNSServer dnsServer;
 
 // Start web server
@@ -25,9 +25,8 @@ int totalSeconds = 0;
 int avgSeconds = 0;
 int timesInfoViewed = 0;
 
-// Gets called on DNS redirect
+// Gets called on not found
 void onRequest(AsyncWebServerRequest *request) {
-  // Respond with 200 OK and HTML page
   request->send(SPIFFS, "/index.html", "text/html");
 }
 
@@ -72,7 +71,7 @@ void setup() {
   Serial.begin(115200);
 
   // Start AP with localIP, dnsIP, and gatewayIP
-  WiFi.mode(WIFI_AP_STA);
+  WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, IPAddress(255,255,255,0));
   WiFi.softAP(ssid);
 
@@ -131,11 +130,8 @@ void setup() {
   });
 
   // Routes to load media content
-  server.on("/media/loading.svg", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/media/loading.svg");
-  });
-  server.on("/media/rick.gif", HTTP_GET, [](AsyncWebServerRequest *request) {
-    request->send(SPIFFS, "/media/rick.gif", "image/gif");
+  server.on("/media/rick.mp4", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(SPIFFS, "/media/rick.mp4", "video/mp4");
   });
 
   // Routes to get/process data

@@ -50,6 +50,31 @@
   animation-name: fadeIn;
 }
 
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
 @-webkit-keyframes fadeInDown {
   from {
     opacity: 0;
@@ -146,9 +171,16 @@
 }
 
 body {
+  background-color: #000;
   font-family: 'Trebuchet MS', 'Lucidia Sans Unicode', sans-serif;
   font-size: 24px;
   margin: 0;
+}
+
+a {
+  display: block;
+  color: #abc;
+  text-align: center;
 }
 
 #rick {
